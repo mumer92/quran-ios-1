@@ -17,7 +17,7 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
 //
-
+import QueuePlayer
 import UIKit
 
 class DefaultAudioBannerViewPresenter: NSObject, AudioBannerViewPresenter, AudioPlayerInteractorDelegate, QProgressListener {
@@ -51,9 +51,10 @@ class DefaultAudioBannerViewPresenter: NSObject, AudioBannerViewPresenter, Audio
         return qaris[selectedQariIndex]
     }
 
-    fileprivate var repeatCount: AudioRepeat = .none {
+    private var verseRuns: Runs = .one {
         didSet {
-            view?.setRepeatCount(repeatCount)
+            audioPlayer.setVerseRuns(verseRuns)
+            view?.setVerseRuns(verseRuns)
         }
     }
 
@@ -116,7 +117,7 @@ class DefaultAudioBannerViewPresenter: NSObject, AudioBannerViewPresenter, Audio
     // MARK: - AudioBannerViewDelegate
     func onPlayTapped() {
         guard let currentPage = delegate?.currentPage() else { return }
-        repeatCount = .none
+        verseRuns = .one
         // start downloading & playing
         audioPlayer.playAudioForQari(selectedQari, atPage: currentPage)
     }
@@ -143,7 +144,7 @@ class DefaultAudioBannerViewPresenter: NSObject, AudioBannerViewPresenter, Audio
     }
 
     func onRepeatTapped() {
-        repeatCount = repeatCount.next()
+        verseRuns = verseRuns.next()
     }
 
     func onQariTapped() {
@@ -217,6 +218,18 @@ class DefaultAudioBannerViewPresenter: NSObject, AudioBannerViewPresenter, Audio
         Queue.main.async {
             self.showQariView()
             self.delegate?.removeHighlighting()
+        }
+    }
+}
+
+extension Runs {
+    func next() -> Runs {
+        switch self {
+        case .one: return .two
+        case .two: return .three
+        case .three: return .four
+        case .four: return .indefinite
+        case .indefinite: return .one
         }
     }
 }

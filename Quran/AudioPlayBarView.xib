@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,6 +16,9 @@
                 <outlet property="nextButton" destination="WnJ-q8-8Mu" id="mI4-Bw-EoG"/>
                 <outlet property="pauseResumeButton" destination="EdY-c0-IjO" id="bUB-rN-rS7"/>
                 <outlet property="previousButton" destination="qgl-kp-WgY" id="9rW-gm-uhD"/>
+                <outlet property="repeatButton" destination="SEl-xP-TZE" id="owZ-Pc-eKK"/>
+                <outlet property="repeatCountLabel" destination="2ma-8g-uXZ" id="dvy-Ee-J5n"/>
+                <outlet property="repeatLabelContainer" destination="Ff3-nq-VAc" id="4vY-X4-Rcg"/>
                 <outlet property="stopButton" destination="yUh-dd-MPZ" id="hj0-q8-FmO"/>
             </connections>
         </placeholder>
@@ -61,11 +65,56 @@
                         <constraint firstAttribute="bottom" secondItem="qgl-kp-WgY" secondAttribute="bottom" id="uwa-Le-gtU"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mG-OQ-hgz">
+                    <rect key="frame" x="377" y="0.0" width="40" height="100"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEl-xP-TZE" customClass="Button" customModule="UIKitExtension">
+                            <rect key="frame" x="0.0" y="33" width="40" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Vqv-r0-ymF"/>
+                                <constraint firstAttribute="height" constant="34" id="ic1-Ju-dgU"/>
+                            </constraints>
+                            <state key="normal" image="repeat"/>
+                        </button>
+                        <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ff3-nq-VAc" customClass="CircularView" customModule="UIKitExtension">
+                            <rect key="frame" x="4" y="39" width="12" height="12"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ma-8g-uXZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="2ma-8g-uXZ" secondAttribute="height" multiplier="1:1" id="YlY-5M-7Hu"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="2ma-8g-uXZ" firstAttribute="leading" secondItem="Ff3-nq-VAc" secondAttribute="leading" id="2sv-eZ-K5Z"/>
+                                <constraint firstItem="2ma-8g-uXZ" firstAttribute="top" secondItem="Ff3-nq-VAc" secondAttribute="top" id="gc8-Sm-mkL"/>
+                                <constraint firstAttribute="bottom" secondItem="2ma-8g-uXZ" secondAttribute="bottom" id="lT8-BM-7Iu"/>
+                                <constraint firstAttribute="trailing" secondItem="2ma-8g-uXZ" secondAttribute="trailing" id="tF4-Fs-R6A"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="SEl-xP-TZE" firstAttribute="centerY" secondItem="3mG-OQ-hgz" secondAttribute="centerY" id="Hhf-om-Odg"/>
+                        <constraint firstItem="Ff3-nq-VAc" firstAttribute="centerY" secondItem="3mG-OQ-hgz" secondAttribute="centerY" constant="-5" id="ftg-Kv-DMc"/>
+                        <constraint firstItem="Ff3-nq-VAc" firstAttribute="centerX" secondItem="3mG-OQ-hgz" secondAttribute="centerX" constant="-10" id="gKS-9P-a5Q"/>
+                        <constraint firstAttribute="trailing" secondItem="SEl-xP-TZE" secondAttribute="trailing" id="maW-Qr-nD6"/>
+                        <constraint firstItem="SEl-xP-TZE" firstAttribute="leading" secondItem="3mG-OQ-hgz" secondAttribute="leading" id="zbS-cE-bCs"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="yUh-dd-MPZ" secondAttribute="bottom" id="Gz3-51-ysS"/>
                 <constraint firstItem="Hsd-2H-vJi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="cqk-c8-lSp"/>
+                <constraint firstItem="3mG-OQ-hgz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gtP-jL-MIE"/>
+                <constraint firstAttribute="bottom" secondItem="3mG-OQ-hgz" secondAttribute="bottom" id="juv-6e-RCl"/>
+                <constraint firstItem="3mG-OQ-hgz" firstAttribute="leading" secondItem="Hsd-2H-vJi" secondAttribute="trailing" constant="30" id="mVS-Sh-uy6"/>
                 <constraint firstItem="Hsd-2H-vJi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qps-fI-hCq"/>
                 <constraint firstAttribute="bottom" secondItem="Hsd-2H-vJi" secondAttribute="bottom" id="wq8-95-rUq"/>
                 <constraint firstItem="yUh-dd-MPZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="wu4-5g-RpM"/>
@@ -81,5 +130,6 @@
         <image name="ic_pause" width="36" height="36"/>
         <image name="ic_previous" width="36" height="36"/>
         <image name="ic_stop" width="36" height="36"/>
+        <image name="repeat" width="27" height="27"/>
     </resources>
 </document>

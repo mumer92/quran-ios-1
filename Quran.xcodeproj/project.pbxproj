@@ -11,6 +11,7 @@
 		06012EEB20701A4B001F94F9 /* PlayerItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06012EEA20701A4B001F94F9 /* PlayerItemInfo.swift */; };
 		06012F5D2075A403001F94F9 /* Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06012F5C2075A403001F94F9 /* Playing.swift */; };
 		06012F5F2075A560001F94F9 /* Runs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06012F5E2075A560001F94F9 /* Runs.swift */; };
+		065F58652077101F00E83AA2 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065F58642077101F00E83AA2 /* Button.swift */; };
 		13FE651AD050C1195EA98683 /* Pods_VFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63202218298A5188DAAFC6C3 /* Pods_VFoundation.framework */; };
 		2F1DFC6777C692FB63EB6F0F /* Pods_QueuePlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C98886280A49AD0690D9F5B0 /* Pods_QueuePlayer.framework */; };
 		32A3FD57144E0B1B02BB1729 /* Pods_BatchDownloader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CBAAEAA5F6076B29DB5FE44 /* Pods_BatchDownloader.framework */; };
@@ -471,6 +472,7 @@
 		06012EEA20701A4B001F94F9 /* PlayerItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemInfo.swift; sourceTree = "<group>"; };
 		06012F5C2075A403001F94F9 /* Playing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playing.swift; sourceTree = "<group>"; };
 		06012F5E2075A560001F94F9 /* Runs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runs.swift; sourceTree = "<group>"; };
+		065F58642077101F00E83AA2 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		06DB453FD466D51920429985 /* Pods_Quran.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quran.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC8E565E1680EEBA186D733 /* Pods-QuranUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranUITests/Pods-QuranUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		10CFDA740ED94B3515170DF3 /* Pods_QuranUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1339,6 +1341,7 @@
 				543FE0411EB3C4A500687DF8 /* BackgroundColorButton.swift */,
 				543FE0421EB3C4A500687DF8 /* CircleView.swift */,
 				543FE0431EB3C4A500687DF8 /* CircularView.swift */,
+				065F58642077101F00E83AA2 /* Button.swift */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -3232,6 +3235,7 @@
 				5420D2C81ED3733500D36821 /* UITableView+Extension.swift in Sources */,
 				543FE0451EB3C4A500687DF8 /* CircleView.swift in Sources */,
 				543FE0181EB3B94100687DF8 /* CGRect+Extension.swift in Sources */,
+				065F58652077101F00E83AA2 /* Button.swift in Sources */,
 				542DCBCD1ECC53D00023D6FD /* ActivityIndicator.swift in Sources */,
 				543FE03F1EB3C3DE00687DF8 /* ScrollViewPageBehavior.swift in Sources */,
 				543FE0241EB3BBE800687DF8 /* PromiseKit+UIExtension.swift in Sources */,

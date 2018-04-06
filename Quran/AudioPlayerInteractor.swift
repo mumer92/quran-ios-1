@@ -17,8 +17,8 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
 //
-
 import PromiseKit
+import QueuePlayer
 
 protocol AudioPlayerInteractorDelegate: class {
     func willStartDownloading()
@@ -53,4 +53,5 @@ protocol AudioPlayerInteractor: class {
     func stopAudio()
     func goForward()
     func goBackward()
+    func setVerseRuns(_ runs: Runs)
 }

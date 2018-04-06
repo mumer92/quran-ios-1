@@ -17,7 +17,7 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
 //
-
+import QueuePlayer
 import UIKit
 
 private let viewHeight: CGFloat = 48
@@ -105,6 +105,9 @@ class DefaultAudioBannerView: UIView, AudioBannerView {
     }
 
     fileprivate func setUpPlayView() {
+        playView.repeatLabelContainer.backgroundColor = .appIdentity()
+        playView.repeatLabelContainer.layer.masksToBounds = true
+
         [playView.stopButton,
             playView.pauseResumeButton,
             playView.nextButton,
@@ -155,23 +158,28 @@ class DefaultAudioBannerView: UIView, AudioBannerView {
         hideAllExcept(playView)
     }
 
-    func setRepeatCount(_ count: AudioRepeat) {
+    func setVerseRuns(_ runs: Runs) {
 
         let formatter = NumberFormatter()
         let text: String
-        switch count {
-        case .none:
+        switch runs {
+        case .one:
             text = ""
-        case .once:
+        case .two:
             text = formatter.format(1)
-        case .twice:
+        case .three:
             text = formatter.format(2)
-        case .threeTimes:
+        case .four:
             text = formatter.format(3)
-        case .infinite:
+        case .indefinite:
             text = "∞"
         }
         playView.repeatCountLabel?.text = text
+        playView.repeatButton.setBackgroundImage(runs != .one ? UIColor.appIdentity().image() : nil, for: .normal)
+        playView.repeatButton.tintColor = runs != .one ? .white : .appIdentity()
+        playView.repeatButton.layer.cornerRadius = 4
+        playView.repeatButton.layer.masksToBounds = true
+        playView.repeatLabelContainer.isHidden = runs == .one
     }
 
     fileprivate func hideAllExcept(_ view: UIView) {

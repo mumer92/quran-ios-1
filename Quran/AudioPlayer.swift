@@ -17,8 +17,8 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
 //
-
 import Foundation
+import QueuePlayer
 
 protocol AudioPlayerDelegate: class {
 
@@ -45,4 +45,6 @@ protocol AudioPlayer: class {
     func goForward()
 
     func goBackward()
+
+    func setVerseRuns(_ runs: Runs)
 }

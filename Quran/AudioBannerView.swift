@@ -17,7 +17,7 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
 //
-
+import QueuePlayer
 import UIKit
 
 protocol AudioBannerViewDelegate: class {
@@ -44,5 +44,5 @@ protocol AudioBannerView: class {
     func setDownloading(_ progress: Float)
     func setPlaying()
     func setPaused()
-    func setRepeatCount(_ count: AudioRepeat)
+    func setVerseRuns(_ runs: Runs)
 }

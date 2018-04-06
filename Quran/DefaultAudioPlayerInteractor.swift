@@ -19,6 +19,7 @@
 //
 import BatchDownloader
 import PromiseKit
+import QueuePlayer
 
 protocol DefaultAudioPlayerInteractor: AudioPlayerInteractor, AudioPlayerDelegate {
 
@@ -98,6 +99,10 @@ extension DefaultAudioPlayerInteractor {
 
     func goBackward() {
         player.goBackward()
+    }
+
+    func setVerseRuns(_ runs: Runs) {
+        player.setVerseRuns(runs)
     }
 
     // MARK: - AudioPlayerDelegate
