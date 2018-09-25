@@ -7,6 +7,7 @@ pool:
   vmImage: 'macOS 10.13'
 
 steps:
+- task: CocoaPods@0
 - task: Xcode@5
   inputs:
     actions: 'build'
