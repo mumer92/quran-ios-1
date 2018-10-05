@@ -77,6 +77,7 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
         layout.minimumInteritemSpacing = 0
 
         let collectionView = ThemedCollectionView(frame: self.bounds, collectionViewLayout: layout)
+        collectionView.kind = .backgroundOLED
         if #available(iOS 11.0, *) {
             collectionView.contentInsetAdjustmentBehavior = .never
         }
@@ -102,6 +103,12 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
     private func setPointerTop(_ value: CGFloat) {
         _pointerTop?.constant = value
         _pointerParentSize = bounds.size
+    }
+    private var minX: CGFloat {
+        return Layout.windowDirectionalSafeAreaInsets.leading
+    }
+    private var maxX: CGFloat {
+        return bounds.width - Layout.windowDirectionalSafeAreaInsets.trailing
     }
 
     lazy var pointer: UIView = {
@@ -149,9 +156,9 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
         dismissBarsTapGesture.delegate = self
         addGestureRecognizer(dismissBarsTapGesture)
 
-        sendSubview(toBack: collectionView)
-        bringSubview(toFront: audioView)
-        bringSubview(toFront: pointer)
+        sendSubviewToBack(collectionView)
+        bringSubviewToFront(audioView)
+        bringSubviewToFront(pointer)
 
         // Long press gesture on verses to select
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(onLongPress(_:))))
@@ -171,8 +178,11 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
         super.layoutSubviews()
         if !pointer.isHidden && _pointerParentSize != bounds.size {
             setPointerTop(pointer.frame.minY * bounds.height / _pointerParentSize.height)
-            if pointer.frame.minX != 0 {
-                _pointerLeft?.constant = bounds.width - pointer.bounds.width
+            // using bounds.height because it has been rotated but pointer.frame.minX has not
+            if pointer.frame.minX > bounds.height / 2 {
+                _pointerLeft?.constant = maxX - pointer.bounds.width
+            } else {
+                _pointerLeft?.constant = minX
             }
         }
     }
@@ -187,7 +197,7 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
             removeConstraint(bottomBarConstraint)
         }
         if hidden {
-            bottomBarConstraint = self.vc.verticalLine(audioView).constraint
+            bottomBarConstraint = self.vc.verticalLine(audioView, by: -1).constraint
         } else {
             bottomBarConstraint = audioView.vc.bottom().constraint
         }
@@ -244,7 +254,10 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
         ]
         UIMenuController.shared.setTargetRect(targetRect(for: localPoint), in: self)
         UIMenuController.shared.setMenuVisible(true, animated: true)
-        NotificationCenter.default.addObserver(self, selector: #selector(resignFirstResponder), name: .UIMenuControllerWillHideMenu, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(resignFirstResponder),
+                                               name: UIMenuController.willHideMenuNotification,
+                                               object: nil)
     }
 
     private func gestureInfo(at point: CGPoint) -> GestureInfo? {
@@ -274,7 +287,7 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
         shareData?.cell.setHighlightedVerses(nil, forType: .share)
 
         // hide the menu controller
-        NotificationCenter.default.removeObserver(self, name: .UIMenuControllerWillHideMenu, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIMenuController.willHideMenuNotification, object: nil)
         UIMenuController.shared.setMenuVisible(false, animated: true)
 
         // remove gestures
@@ -412,7 +425,7 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
         layoutIfNeeded()
 
         setPointerTop(bounds.height / 4)
-        _pointerLeft?.constant = 0
+        _pointerLeft?.constant = minX
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
             self.layoutIfNeeded()
         }, completion: nil)
@@ -457,7 +470,7 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
             }
 
             let finalY = max(10, min(bounds.height - pointer.bounds.height, velocity.y * 0.3 + pointer.frame.minY))
-            let finalX = goLeft ? 0 : bounds.width - pointer.bounds.width
+            let finalX = goLeft ? minX : maxX - pointer.bounds.width
 
             let y = finalY - pointer.frame.minY
             let x = finalX - pointer.frame.minX
@@ -487,7 +500,7 @@ class QuranView: UIView, UIGestureRecognizerDelegate {
         let isUpward = frame.minY < 63
         let point = CGPoint(x: frame.midX, y: isUpward ? frame.maxY + 10 : frame.minY - 10)
 
-        var word: AyahWord? = nil
+        var word: AyahWord?
         if lastWord?.position == info.position {
             word = lastWord
             show(word: lastWord, at: point, isUpward: isUpward)

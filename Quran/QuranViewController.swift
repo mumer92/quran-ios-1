@@ -54,7 +54,7 @@ class QuranViewController: BaseViewController, AudioBannerViewPresenterDelegate,
 
     private var barsTimer: VFoundation.Timer?
 
-    private var interactivePopGestureOldEnabled: Bool?
+    private var interactivePopGestureOldEnabled: Bool = true
     private var barsHiddenTimerExecuted = false
 
     override var screen: Analytics.Screen {
@@ -181,6 +181,7 @@ class QuranViewController: BaseViewController, AudioBannerViewPresenterDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        kind = .backgroundOLED
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
@@ -215,7 +216,7 @@ class QuranViewController: BaseViewController, AudioBannerViewPresenterDelegate,
         UIApplication.shared.isIdleTimerDisabled = true
         navigationController?.setNavigationBarHidden(false, animated: animated)
         interactiveGestureToken.once {
-            interactivePopGestureOldEnabled = navigationController?.interactivePopGestureRecognizer?.isEnabled
+            interactivePopGestureOldEnabled = navigationController?.interactivePopGestureRecognizer?.isEnabled ?? interactivePopGestureOldEnabled
         }
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
@@ -233,7 +234,7 @@ class QuranViewController: BaseViewController, AudioBannerViewPresenterDelegate,
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = interactivePopGestureOldEnabled ?? true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = interactivePopGestureOldEnabled
     }
 
     override func viewDidLayoutSubviews() {
@@ -295,7 +296,7 @@ class QuranViewController: BaseViewController, AudioBannerViewPresenterDelegate,
         present(controller, animated: true, completion: nil)
     }
 
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
 

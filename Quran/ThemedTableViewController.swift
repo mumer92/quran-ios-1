@@ -52,6 +52,7 @@ class ThemedTableViewController: UITableViewController {
     func themeDidChange() {
         tableView.backgroundColor = kind.color
         tableView.separatorColor = separatorKind.color
+        tableView.indicatorStyle = tableView.themedScrollIndicatorStyle
         if modalPresentationStyle == .popover {
             popoverPresentationController?.backgroundColor = Theme.Kind.popover.color
         }

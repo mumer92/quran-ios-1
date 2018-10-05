@@ -32,7 +32,7 @@ class QuranTranslationCollectionPageCollectionViewCell: QuranBasePageCollectionV
         return renderer
     }()
 
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: ThemedCollectionView!
 
     private var highlights: [QuranHighlightType: Set<AyahNumber>] = [:] {
         didSet { dataSource.highlights = highlights }
@@ -63,6 +63,7 @@ class QuranTranslationCollectionPageCollectionViewCell: QuranBasePageCollectionV
             collectionView.contentInsetAdjustmentBehavior = .never
         }
 
+        collectionView.kind = .backgroundOLED
         collectionView.ds_register(cellClass: QuranTranslationSuraNameCollectionViewCell.self)
         collectionView.ds_register(cellClass: QuranTranslationVerseNumberCollectionViewCell.self)
         collectionView.ds_register(cellClass: QuranTranslationVerseSeparatorCollectionViewCell.self)
@@ -162,7 +163,7 @@ class QuranTranslationCollectionPageCollectionViewCell: QuranBasePageCollectionV
         // layout views if needed
         layoutIfNeeded()
 
-        var optionalAyah: AyahNumber? = nil
+        var optionalAyah: AyahNumber?
         for highlightType in QuranHighlightType.scrollingTypes {
             if let firstAyah = highlights[highlightType]?.first {
                 optionalAyah = firstAyah
@@ -177,7 +178,7 @@ class QuranTranslationCollectionPageCollectionViewCell: QuranBasePageCollectionV
             return
         }
         // scroll to the reading/search ayah
-        collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.top, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.top, animated: true)
     }
 
     override func highlight(position: AyahWord.Position?) {

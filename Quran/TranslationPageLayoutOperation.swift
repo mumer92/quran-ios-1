@@ -37,10 +37,10 @@ class TranslationPageLayoutOperation: AbstractPreloadingOperation<TranslationPag
                 let arabicPrefixLayouts = verse.arabicPrefix.map { arabicLayoutFrom($0) }
                 let arabicSuffixLayouts = verse.arabicSuffix.map { arabicLayoutFrom($0) }
                 return TranslationVerseLayout(ayah: verse.ayah,
-                                       arabicTextLayout: arabicLayoutFrom(verse.arabicText),
-                                       translationLayouts: verse.translations.map { translationTextLayoutFrom($0) },
-                                       arabicPrefixLayouts: arabicPrefixLayouts,
-                                       arabicSuffixLayouts: arabicSuffixLayouts)
+                                              arabicTextLayout: arabicLayoutFrom(verse.arabicText),
+                                              translationLayouts: verse.translations.map { translationTextLayoutFrom($0) },
+                                              arabicPrefixLayouts: arabicPrefixLayouts,
+                                              arabicSuffixLayouts: arabicSuffixLayouts)
             }
             let pageLayout = TranslationPageLayout(pageNumber: page.pageNumber,
                                                    verseLayouts: verseLayouts,
@@ -83,6 +83,7 @@ class TranslationPageLayoutOperation: AbstractPreloadingOperation<TranslationPag
         layoutManager.addTextContainer(textContainer)
 
         // get number of glyphs
+        layoutManager.ensureLayout(for: textContainer)
         let numberOfGlyphs = layoutManager.numberOfGlyphs
         let range = NSRange(location: 0, length: numberOfGlyphs)
 
