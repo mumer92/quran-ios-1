@@ -4,14 +4,14 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 
 pool:
-  vmImage: 'macOS 10.13'
+  vmImage: 'macOS 10.14'
 
 steps:
-- task: Xcode@5
+- task: Xcode@10
   inputs:
     actions: 'build'
     scheme: 'Quran'
     sdk: 'iphoneos'
     configuration: 'Release'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    xcodeVersion: 'default' # Options: 8, 9, default, specifyPath
+    xcodeVersion: '10' # Options: 8, 9, default, specifyPath
